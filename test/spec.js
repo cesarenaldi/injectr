@@ -84,6 +84,16 @@ describe("injectr", function () {
         expect(context.module).to.have.property('exports');
         expect(context.module.exports).to.be.an('object');
 	});
+	it("should have a predefined exports that mirror module.exports", function () {
+        var context,
+            mockScript,
+            l;
+        l = this.injectr('filename');
+        mockScript = this.mockVm.createScript.calls[0].pretendr;
+        context = mockScript.runInNewContext.calls[0].args[0];
+        expect(context).to.have.property('exports');
+        expect(context.exports).to.be.equal(context.module.exports);
+	});
 	it("should return module.exports", function () {
         var context,
             mockScript,
